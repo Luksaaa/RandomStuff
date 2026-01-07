@@ -4,14 +4,12 @@ import threading
 import msvcrt
 import sys
 
-REFRESH_TIME = 12  # seconds
-
+REFRESH_TIME = 12 
 paused = False
 running = True
 lock = threading.Lock()
 MODE = 1
 
-# ---------- DEFENSIVE CUE SETS ----------
 
 COMMON_DEF_CUES = [
     "Slip(Dolje)", "Duck(Cucanj)", "Roll(L/R Cucanj)", "Parry(Take a hit)", "Block", "Pivot(Promjeni smjer)", "Step Back"
@@ -33,7 +31,6 @@ ALL_DEF_CUES = [
     "Block & Counter", "Parry & Jab", "Catch & Cross"
 ]
 
-# ---------- GENERATORS ----------
 
 def generate_normal_combo():
     return [random.randint(1, 6) for _ in range(random.randint(3, 6))]
@@ -66,7 +63,6 @@ def generate_def_cue():
         return random.choice(ALL_DEF_CUES)
     return ""
 
-# ---------- PRINT ----------
 
 def print_combo():
     with lock:
@@ -102,8 +98,6 @@ def print_block(title, combo):
     print("==============================")
     print("[ENTER] New  |  [SPACE] Pause  |  [ESC] Stop")
 
-# ---------- THREADS ----------
-
 def timer_loop():
     global running
     while running:
@@ -128,14 +122,12 @@ def keyboard_loop():
                     paused = not paused
                     print(f"\n--- {'PAUSED' if paused else 'RESUMED'} ---")
 
-            elif key == b'\x1b':  # ESC
+            elif key == b'\x1b':  # exit sa esc
                 with lock:
                     running = False
                 return
 
         time.sleep(0.05)
-
-# ---------- MODE SELECTION ----------
 
 def select_mode():
     print("\nBOXING TRAINING GENERATOR")
@@ -149,8 +141,6 @@ def select_mode():
         choice = input("Select mode (1-4): ").strip()
         if choice in ("1", "2", "3", "4"):
             return int(choice)
-
-# ---------- MAIN ----------
 
 def main():
     global MODE, running, paused
@@ -174,8 +164,6 @@ def main():
         answer = input("\nDo you want to restart? (Y/N): ").strip().upper()
         if answer != "Y":
             sys.exit()
-
-# ---------- START ----------
 
 if __name__ == "__main__":
     main()

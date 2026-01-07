@@ -33,16 +33,16 @@ def main():
     print("3 - PYTHON SHUTIL")
     print("====================================")
 
-    choice = input("Choose method (1/2/3): ").strip()
+    choice = input("Choose method (1/2/3) --> ").strip()
 
-    source = input("Enter SOURCE path: ").strip('"')
-    destination = input("Enter DESTINATION path: ").strip('"')
+    source = input("Enter SOURCE path --> ").strip('"')
+    destination = input("Enter DESTINATION path --> ").strip('"')
 
     if not os.path.exists(source):
-        print("❌ Source path does not exist!")
+        print(" Source path does not exist!")
         return
 
-    print("\n⏳ Copying...\n")
+    print("\n Copying...\n")
 
     if choice == "1":
         robocopy(source, destination)
@@ -51,10 +51,10 @@ def main():
     elif choice == "3":
         shutil_copy(source, destination)
     else:
-        print("❌ Invalid option!")
+        print(" Invalid option!")
         return
 
-    print("\n✅ Copy completed!")
+    print("\n Copy completed!")
 
 if __name__ == "__main__":
     main()
